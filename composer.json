@@ -1,0 +1,22 @@
+{
+    "name": "parishop/processors",
+    "description": "Processors for PHPixie",
+    "minimum-stability": "dev",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vadim Meling",
+            "email": "vadim@meling.ru"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Parishop\\": "src/Parishop"
+        }
+    },
+    "require": {
+        "phpixie/default-bundle": "~3.0",
+        "parishop/document": "@dev",
+        "parishop/images": "@dev"
+    }
+}
