@@ -1,7 +1,6 @@
 {
     "name": "parishop/processors",
     "description": "Processors for PHPixie",
-    "minimum-stability": "dev",
     "license": "MIT",
     "authors": [
         {
@@ -16,7 +15,7 @@
     },
     "require": {
         "phpixie/default-bundle": "~3.0",
-        "parishop/document": "@dev",
-        "parishop/images": "@dev"
+        "parishop/document": "~1.0",
+        "parishop/images": "~1.0"
     }
 }
