@@ -1,9 +1,9 @@
 <?php
-namespace Parishop\Wrappers;
+namespace Parishop\ORMWrappers;
 
 /**
  * Class Entity
- * @package Parishop\Wrappers
+ * @package Parishop\ORMWrappers
  * @since   1.0
  */
 class Entity extends \PHPixie\ORM\Wrappers\Type\Database\Entity
