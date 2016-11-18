@@ -32,7 +32,7 @@ class HTTPProcessors extends \PHPixie\DefaultBundle\Processor\HTTP\Builder
     public function processor($name)
     {
         if(!array_key_exists($name, $this->processors)) {
-            $class = __NAMESPACE__ . '\\HTTPProcessors\\' . ucfirst($name);
+            $class = get_class($this) . '\\' . ucfirst($name);
             if(!class_exists($class)) {
                 return parent::processor($name);
             }
