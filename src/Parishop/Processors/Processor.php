@@ -25,7 +25,7 @@ class Processor extends \PHPixie\DefaultBundle\Processor\HTTP\Actions
     }
 
     /**
-     * @return \Parishop\ORMWrappers\Customer\Entity
+     * @return \Parishop\Wrappers\Customer\Entity
      * @since 1.0
      */
     protected function customer()
@@ -100,7 +100,7 @@ class Processor extends \PHPixie\DefaultBundle\Processor\HTTP\Actions
     }
 
     /**
-     * @return \Parishop\ORMWrappers\User\Entity
+     * @return \Parishop\Wrappers\User\Entity
      * @since 1.0
      */
     protected function user()

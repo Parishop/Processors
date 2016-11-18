@@ -1,12 +1,12 @@
 <?php
-namespace Parishop\Wrappers;
+namespace Parishop\ORMWrappers;
 
 /**
  * Class Repository
  * @method Entity create($data = null)
  * @method Query query()
  * @method \PHPixie\Slice\Type\ArrayData config()
- * @package Parishop\Wrappers
+ * @package Parishop\ORMWrappers
  * @since   1.0
  */
 class Repository extends \PHPixie\ORM\Wrappers\Type\Database\Repository

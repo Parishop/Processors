@@ -6,7 +6,7 @@ namespace Parishop\Wrappers\Customer;
  * @package Parishop\Wrappers\Customer
  * @since   1.0
  */
-class Repository extends \Parishop\Wrappers\Repository
+class Repository extends \Parishop\ORMWrappers\Repository
 {
     /**
      * @param string $login

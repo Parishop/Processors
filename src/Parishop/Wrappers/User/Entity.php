@@ -6,7 +6,7 @@ namespace Parishop\Wrappers\User;
  * @package Parishop\Wrappers\User
  * @since   1.0
  */
-class Entity extends \Parishop\Wrappers\Entity
+class Entity extends \Parishop\ORMWrappers\Entity
 {
     /**
      * @return string
