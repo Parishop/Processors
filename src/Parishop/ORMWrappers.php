@@ -26,12 +26,12 @@ class ORMWrappers extends \PHPixie\ORM\Wrappers\Implementation
 
     /**
      * @param \PHPixie\ORM\Drivers\Driver\PDO\Query $query
-     * @return Wrappers\Query
+     * @return ORMWrappers\Query
      * @since 1.0.1
      */
     public function databaseQueryWrapper($query)
     {
-        $class = __NAMESPACE__ . '\ORMWrappers\\' . ucfirst($query->modelName()) . '\Query';
+        $class = get_class($this) . '\\' . ucfirst($query->modelName()) . '\Query';
         if(class_exists($class)) {
             return new $class($query, $this->builder);
         }
@@ -41,12 +41,12 @@ class ORMWrappers extends \PHPixie\ORM\Wrappers\Implementation
 
     /**
      * @param \PHPixie\ORM\Drivers\Driver\PDO\Repository $repository
-     * @return Wrappers\Repository
+     * @return ORMWrappers\Repository
      * @since 1.0.1
      */
     public function databaseRepositoryWrapper($repository)
     {
-        $class = __NAMESPACE__ . '\ORMWrappers\\' . ucfirst($repository->modelName()) . '\Repository';
+        $class = get_class($this) . '\\' . ucfirst($repository->modelName()) . '\Repository';
         if(class_exists($class)) {
             return new $class($repository, $this->builder);
         }
@@ -56,12 +56,12 @@ class ORMWrappers extends \PHPixie\ORM\Wrappers\Implementation
 
     /**
      * @param \PHPixie\ORM\Drivers\Driver\PDO\Entity $entity
-     * @return Wrappers\Entity
+     * @return ORMWrappers\Entity
      * @since 1.0.1
      */
     protected function entityWrapper($entity)
     {
-        $class = __NAMESPACE__ . '\ORMWrappers\\' . ucfirst($entity->modelName()) . '\Entity';
+        $class = get_class($this) . '\\' . ucfirst($entity->modelName()) . '\Entity';
         if(class_exists($class)) {
             return new $class($entity, $this->builder);
         }

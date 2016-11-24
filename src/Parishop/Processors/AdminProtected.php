@@ -20,7 +20,7 @@ class AdminProtected extends AppProcessor
             return parent::process($value);
         }
 
-        return $this->container('admin:auth/login', $value);
+        return $this->container($value->attributes()->get('bundle', 'admin') . ':auth/login');
     }
 
 }
