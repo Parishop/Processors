@@ -73,6 +73,17 @@ class Processor extends \PHPixie\DefaultBundle\Processor\HTTP\Actions
     }
 
     /**
+     * @param string $resolverPath
+     * @param array  $attributes
+     * @return \PHPixie\HTTP\Responses\Response
+     * @since 1.0.3
+     */
+    protected function redirectResponse($resolverPath = null, $attributes = array())
+    {
+        return $this->builder->frameworkBuilder()->http()->redirectResponse($resolverPath, $attributes);
+    }
+
+    /**
      * @return \PHPixie\Route\Translator
      * @since 1.0
      */
