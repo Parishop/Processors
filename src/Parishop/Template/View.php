@@ -17,6 +17,10 @@ namespace Parishop\Template;
  * @method \PHPixie\Slice\Type\ArrayData data()
  * @method void remove($path)
  * *********************************************************************************************************************
+ * @see     \PHPixie\Framework\Extensions\Template\Extension\RouteTranslator
+ * @method string httpPath($resolverPath, $attributes = array());
+ * @method string httpUri($resolverPath, $attributes = array(), $withHost = true);
+ * *********************************************************************************************************************
  * @see     \PHPixie\Template\Extensions\Extension\HTML
  * @method string htmlEscape();
  * @method string htmlOutput();
@@ -41,6 +45,7 @@ namespace Parishop\Template;
  * @see     \Parishop\Messages
  * @method \Parishop\Messages\Message[] messages()
  * @package Parishop\Template
+ * @since 1.0.3
  */
 class View extends \PHPixie\Template\Renderer\Runtime
 {

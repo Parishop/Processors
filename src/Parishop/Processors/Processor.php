@@ -25,6 +25,15 @@ class Processor extends \PHPixie\DefaultBundle\Processor\HTTP\Actions
     }
 
     /**
+     * @return \PHPixie\HTTP\Context\Cookies
+     * @since 1.0.4
+     */
+    protected function cookies()
+    {
+        return $this->builder->frameworkBuilder()->context()->httpContext()->cookies();
+    }
+
+    /**
      * @return \Parishop\Wrappers\Customer\Entity
      * @since 1.0
      */
@@ -90,6 +99,24 @@ class Processor extends \PHPixie\DefaultBundle\Processor\HTTP\Actions
     protected function routeTranslator()
     {
         return $this->builder->frameworkBuilder()->http()->routeTranslator();
+    }
+
+    /**
+     * @return \PHPixie\HTTP\Context\Session
+     * @since 1.0.4
+     */
+    protected function session()
+    {
+        return $this->builder->frameworkBuilder()->context()->httpContext()->session();
+    }
+
+    /**
+     * @return \PHPixie\Slice
+     * @since 1.0.4
+     */
+    protected function slice()
+    {
+        return $this->builder->components()->slice();
     }
 
     /**

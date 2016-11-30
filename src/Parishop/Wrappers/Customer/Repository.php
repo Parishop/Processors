@@ -9,6 +9,16 @@ namespace Parishop\Wrappers\Customer;
 class Repository extends \Parishop\ORMWrappers\Repository
 {
     /**
+     * @param mixed $id
+     * @return Entity
+     * @since 1.0.4
+     */
+    public function getById($id)
+    {
+        return $this->query()->in($id)->findOne();
+    }
+
+    /**
      * @param string $login
      * @return Entity
      * @since 1.0

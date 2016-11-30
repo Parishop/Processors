@@ -17,6 +17,7 @@
         "phpixie/default-bundle": "~3.0",
         "parishop/document": "~1.0",
         "parishop/images": "~1.0",
-        "parishop/messages": "~1.0"
+        "parishop/messages": "~1.0",
+        "parishop/orm-wrappers": "dev-master"
     }
 }
