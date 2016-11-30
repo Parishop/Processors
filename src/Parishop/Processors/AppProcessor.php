@@ -108,8 +108,29 @@ class AppProcessor extends Processor
      * @param \PHPixie\HTTP\Request $request
      * @return \PHPixie\Template\Container
      * @since 1.0
+     * @deprecated 1.0.5
      */
     protected function container($templateName = null, $request = null)
+    {
+        if($templateName === null && $request !== null) {
+            $attributes   = $request->attributes();
+            $bundle       = $attributes->get('bundle');
+            $processor    = $attributes->get('processor');
+            $action       = $attributes->get('action');
+            $templateName = $bundle . ':' . $processor . '/' . $action;
+        }
+        $this->container = $this->template()->get($templateName);
+
+        return $this->container;
+    }
+
+    /**
+     * @param string                $templateName
+     * @param \PHPixie\HTTP\Request $request
+     * @return \PHPixie\Template\Container
+     * @since 1.0.4
+     */
+    protected function getTemplate($templateName = null, $request = null)
     {
         if($templateName === null && $request !== null) {
             $attributes   = $request->attributes();

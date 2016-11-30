@@ -17,10 +17,16 @@ class AppProtected extends AppProcessor
     public function process($value)
     {
         if($this->customer()) {
-            return parent::process($value);
+            if(strtolower($value->server()->get('HTTP_X_REQUESTED_WITH') !== 'xmlhttprequest')) {
+                $this->getTemplate(null, $value);
+                $this->container->set('customer', $this->customer());
+            }
+            $result = parent::process($value);
+
+            return $result ? $result : $this->container;
         }
 
-        return $this->container($value->attributes()->get('bundle', 'admin') . ':auth/login');
+        return $this->getTemplate($value->attributes()->get('bundle', 'app') . ':auth/login');
     }
 
 }
