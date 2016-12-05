@@ -17,11 +17,10 @@ class AppProtected extends AppProcessor
     public function process($value)
     {
         if($this->customer()) {
-            if(strtolower($value->server()->get('HTTP_X_REQUESTED_WITH') !== 'xmlhttprequest')) {
-                $this->getTemplate(null, $value);
+            $result = parent::process($value);
+            if($this->container instanceof \PHPixie\Template\Container) {
                 $this->container->set('customer', $this->customer());
             }
-            $result = parent::process($value);
 
             return $result ? $result : $this->container;
         }

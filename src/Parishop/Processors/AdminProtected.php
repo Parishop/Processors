@@ -17,11 +17,10 @@ class AdminProtected extends AppProcessor
     public function process($value)
     {
         if($this->user()) {
-            if(strtolower($value->server()->get('HTTP_X_REQUESTED_WITH') !== 'xmlhttprequest')) {
-                $this->getTemplate(null, $value);
+            $result = parent::process($value);
+            if($this->container instanceof \PHPixie\Template\Container) {
                 $this->container->set('user', $this->user());
             }
-            $result = parent::process($value);
 
             return $result ? $result : $this->container;
         }
