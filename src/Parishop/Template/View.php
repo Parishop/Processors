@@ -30,6 +30,10 @@ namespace Parishop\Template;
  * @method array getMeta()
  * @method array getLinks()
  * @method array getScripts()
+ * @method array url($processor = null, $action = null, $id = null, array $attributes = [], $resolverPath = null)
+ * @method array path($processor = null, $action = null, $id = null, array $attributes = [], $resolverPath = null)
+ * @method \Parishop\Wrappers\Customer\Entity customer()
+ * @method \Parishop\Wrappers\User\Entity user()
  * *********************************************************************************************************************
  * @see     \Parishop\Images
  * @method string imageRender($imageName = null, $width = null, $height = null, $title = null, $attributes = [], $format = null, $quality = 90)
@@ -45,7 +49,7 @@ namespace Parishop\Template;
  * @see     \Parishop\Messages
  * @method \Parishop\Messages\Message[] messages()
  * @package Parishop\Template
- * @since 1.0.3
+ * @since   1.0.3
  */
 class View extends \PHPixie\Template\Renderer\Runtime
 {

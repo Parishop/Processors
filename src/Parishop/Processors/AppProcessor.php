@@ -33,6 +33,38 @@ class AppProcessor extends Processor
     protected $images;
 
     /**
+     * @var \Parishop\Mailer
+     * @since 1.0.5
+     */
+    private $mailer;
+
+    /**
+     * AppProcessor constructor.
+     * @param \PHPixie\DefaultBundle\Builder $builder
+     * @since 1.0.5
+     */
+    public function __construct(\PHPixie\DefaultBundle\Builder $builder)
+    {
+        parent::__construct($builder);
+        $this->document = $this->document();
+        $this->messages = $this->messages();
+        $this->images   = $this->images();
+    }
+
+    /**
+     * @return \Parishop\Mailer
+     * @since 1.0.5
+     */
+    public function mailer()
+    {
+        if($this->mailer === null) {
+            $this->mailer = new \Parishop\Mailer($this->builder->components()->template(), $this->builder->frameworkBuilder()->configuration()->config()->arraySlice('mailer'));
+        }
+
+        return $this->mailer;
+    }
+
+    /**
      * @param string $processor
      * @param string $action
      * @param string $id
@@ -43,20 +75,7 @@ class AppProcessor extends Processor
      */
     public function path($processor, $action = null, $id = null, array $attributes = [], $resolverPath = null)
     {
-        if($resolverPath === null) {
-            $resolverPath = $this->builder->bundleName() . '.processor';
-            if($action !== null) {
-                $resolverPath = $this->builder->bundleName() . '.action';
-                if($id !== null) {
-                    $resolverPath = $this->builder->bundleName() . '.id';
-                }
-            }
-        }
-        $attributes['processor'] = $processor;
-        $attributes['action']    = $action;
-        $attributes['id']        = $id;
-
-        return $this->routeTranslator()->generatePath($resolverPath, $attributes);
+        return $this->document->path($processor, $action, $id, $attributes, $resolverPath);
     }
 
     /**
@@ -67,7 +86,12 @@ class AppProcessor extends Processor
     public function process($value)
     {
         try {
-            return parent::process($value);
+            if(strtolower($value->server()->get('HTTP_X_REQUESTED_WITH') !== 'xmlhttprequest')) {
+                $this->getTemplate(null, $value);
+            }
+            $result = parent::process($value);
+
+            return $result ? $result : $this->container;
         } catch(\Exception $e) {
             $frameworkProcessors = $this->builder->frameworkBuilder()->processors();
             $httpConfig          = $this->builder->frameworkBuilder()->configuration()->httpConfig();
@@ -85,43 +109,9 @@ class AppProcessor extends Processor
      * @return \PHPixie\HTTP\Messages\URI\SAPI
      * @since 1.0
      */
-    public function url($processor, $action = null, $id = null, array $attributes = [], $resolverPath = null)
+    public function url($processor = null, $action = null, $id = null, array $attributes = [], $resolverPath = null)
     {
-        if($resolverPath === null) {
-            $resolverPath = $this->builder->bundleName() . '.processor';
-            if($action !== null) {
-                $resolverPath = $this->builder->bundleName() . '.action';
-                if($id !== null) {
-                    $resolverPath = $this->builder->bundleName() . '.id';
-                }
-            }
-        }
-        $attributes['processor'] = $processor;
-        $attributes['action']    = $action;
-        $attributes['id']        = $id;
-
-        return $this->routeTranslator()->generateUri($resolverPath, $attributes);
-    }
-
-    /**
-     * @param string                $templateName
-     * @param \PHPixie\HTTP\Request $request
-     * @return \PHPixie\Template\Container
-     * @since 1.0
-     * @deprecated 1.0.5
-     */
-    protected function container($templateName = null, $request = null)
-    {
-        if($templateName === null && $request !== null) {
-            $attributes   = $request->attributes();
-            $bundle       = $attributes->get('bundle');
-            $processor    = $attributes->get('processor');
-            $action       = $attributes->get('action');
-            $templateName = $bundle . ':' . $processor . '/' . $action;
-        }
-        $this->container = $this->template()->get($templateName);
-
-        return $this->container;
+        return $this->document->url($processor, $action, $id, $attributes, $resolverPath);
     }
 
     /**
@@ -148,7 +138,7 @@ class AppProcessor extends Processor
      * @return \Parishop\Document
      * @since 1.0
      */
-    protected function document()
+    private function document()
     {
         return $this->templateExtensions()->get('document');
     }
@@ -157,7 +147,7 @@ class AppProcessor extends Processor
      * @return \Parishop\Images
      * @since 1.0
      */
-    protected function images()
+    private function images()
     {
         return $this->templateExtensions()->get('images');
     }
@@ -166,10 +156,11 @@ class AppProcessor extends Processor
      * @return \Parishop\Messages
      * @since 1.0
      */
-    protected function messages()
+    private function messages()
     {
         return $this->templateExtensions()->get('messages');
     }
+
 
 }
 

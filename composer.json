@@ -18,6 +18,7 @@
         "parishop/document": "~1.0",
         "parishop/images": "~1.0",
         "parishop/messages": "~1.0",
-        "parishop/orm-wrappers": "dev-master"
+        "parishop/mailer": "~1.0",
+        "parishop/orm-wrappers": "~1.0"
     }
 }
